@@ -2,12 +2,13 @@ env:
   browser: true
   commonjs: true
   es2021: true
+  jest: true
 extends:
   - airbnb-base
 parserOptions:
   ecmaVersion: latest
 ignorePatterns:
-  - "*.test.js"
+  - "*.config.js"
 rules: 
   no-plusplus: off
   no-unused-vars: warn

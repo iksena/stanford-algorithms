@@ -15,13 +15,13 @@ describe('Inversions', () => {
   });
 
   it('should mergeSort an array and count total inversions', () => {
-      const array = [6, 5, 4, 3, 2, 1];
-      const expectedSortedArray = [1, 2, 3, 4, 5, 6];
-      const expectedInversions = 15
+    const array = [6, 5, 4, 3, 2, 1];
+    const expectedSortedArray = [1, 2, 3, 4, 5, 6];
+    const expectedInversions = 15;
 
-      const [sortedArray, inversions] = mergeSort(array);
+    const [sortedArray, inversions] = mergeSort(array);
 
-      expect(sortedArray).toStrictEqual(expectedSortedArray);
-      expect(inversions).toBe(expectedInversions)
+    expect(sortedArray).toStrictEqual(expectedSortedArray);
+    expect(inversions).toBe(expectedInversions);
   });
 });
