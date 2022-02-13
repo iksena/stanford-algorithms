@@ -6,7 +6,10 @@ extends:
   - airbnb-base
 parserOptions:
   ecmaVersion: latest
+ignorePatterns:
+  - "*.test.js"
 rules: 
   no-plusplus: off
   no-unused-vars: warn
   no-loss-of-precision: warn
+  no-param-reassign: warn
