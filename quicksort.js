@@ -1,5 +1,13 @@
-const { sortBy, isEqual } = require('lodash');
+const { isEqual } = require('lodash');
 const { readInput } = require('.');
+
+const constants = {
+  PIVOT: {
+    FIRST_INDEX: 0, // 162085
+    LAST_INDEX: 1, // 164123
+    MEDIAN_OF_THREE: 2, // 157391
+  },
+};
 
 const partition = (array, l, r) => {
   const pivot = array[l];
@@ -16,13 +24,13 @@ const partition = (array, l, r) => {
 };
 
 const choosePivotMedian = (array, l, r) => {
-  const m = Math.floor((r - l) / 2);
+  const m = Math.floor((r + l) / 2);
   if ((array[l] <= array[m] && array[m] <= array[r])
     || (array[r] <= array[m] && array[m] <= array[l])) return array[m];
-  if ((array[l] <= array[r] && array[r] <= array[m])
-    || (array[m] <= array[r] && array[r] <= array[l])) return array[r];
   if ((array[m] <= array[l] && array[l] <= array[r])
     || (array[r] <= array[l] && array[l] <= array[m])) return array[l];
+  if ((array[l] <= array[r] && array[r] <= array[m])
+    || (array[m] <= array[r] && array[r] <= array[l])) return array[r];
   return array[m];
 };
 
@@ -39,7 +47,7 @@ const choosePivotMedian = (array, l, r) => {
  */
 const quickSort = (array, l, r, pivotOption = 0, comparisons = 0) => {
   if (l >= r) {
-    return comparisons;
+    return 0;
   }
   const pivotOptions = [l, r, choosePivotMedian(array, l, r)];
   const pivot = pivotOptions[pivotOption];
@@ -51,13 +59,19 @@ const quickSort = (array, l, r, pivotOption = 0, comparisons = 0) => {
   return comparisons + comparisonLeft + comparisonRight + r - l;
 };
 
-module.exports = { partition, choosePivotMedian, quickSort };
+module.exports = {
+  partition, choosePivotMedian, quickSort, constants,
+};
 
-const input = readInput('quicksort-input.txt');
-const array = input.slice();
+const assignment3 = (pivotOption) => {
+  const input = readInput('quicksort-input.txt');
+  const array = input.slice();
 
-const result = quickSort(array, 0, array.length - 1, 2);
-const resultNative = sortBy(input);
+  const result = quickSort(array, 0, array.length - 1, pivotOption);
+  const resultNative = input.sort((a, b) => a - b);
 
-console.log('sorted correctly =', array, isEqual(array, resultNative));
-console.log('comparisons =', result);
+  console.log('sorted correctly =', array, isEqual(array, resultNative));
+  console.log('comparisons =', result);
+};
+
+// assignment3(constants.PIVOT.FIRST_INDEX);

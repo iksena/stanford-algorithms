@@ -1,16 +1,16 @@
 const { readInput } = require('.');
-const { quickSort, choosePivotMedian } = require('./quicksort');
+const { quickSort, choosePivotMedian, constants: { PIVOT } } = require('./quicksort');
 
 const testComparisons = (testCase = '01_5') => () => {
   const input = readInput(`../stanford-algs/testCases/course1/assignment3Quicksort/input_dgrcode_${testCase}.txt`);
   const lastIndex = input.length - 1;
   const [expected1, expected2, expected3] = readInput(`../stanford-algs/testCases/course1/assignment3Quicksort/output_dgrcode_${testCase}.txt`);
 
-  const comparison1 = quickSort(input.slice(), 0, lastIndex, 0);
-  const comparison2 = quickSort(input.slice(), 0, lastIndex, 1);
-  const comparison3 = quickSort(input.slice(), 0, lastIndex, 2);
-  console.log('Expected', expected1, expected2, expected3);
-  console.log('Result', comparison1, comparison2, comparison3);
+  const comparison1 = quickSort([...input], 0, lastIndex, PIVOT.FIRST_INDEX, 0);
+  const comparison2 = quickSort([...input], 0, lastIndex, PIVOT.LAST_INDEX, 0);
+  const comparison3 = quickSort([...input], 0, lastIndex, PIVOT.MEDIAN_OF_THREE, 0);
+  console.log(`Expected=${expected1},${expected2},${expected3}
+  Result=${comparison1},${comparison2},${comparison3}`);
 
   expect(comparison1).toBe(expected1);
   expect(comparison2).toBe(expected2);
@@ -21,6 +21,10 @@ describe('QuickSort Comparisons', () => {
   it('should correctly count comparisons 01_5', testComparisons('01_5'));
 
   it('should correctly count comparisons 06_10', testComparisons('06_10'));
+
+  it('should correctly count comparisons 15_20', testComparisons('15_20'));
+
+  it('should correctly count comparisons 18_100000', testComparisons('18_100000'));
 });
 
 describe('Median of three', () => {
