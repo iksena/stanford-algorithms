@@ -2,6 +2,11 @@ const fs = require('fs');
 const path = require('path');
 const { mergeSort } = require('./inversions');
 
+/**
+ * Read array of numbers from file path
+ * @param {path.ParsedPath}} filename - file path
+ * @returns {Array<number>} array of number
+ */
 const readInput = (filename) => {
   const file = fs.readFileSync(path.join(__dirname, filename), 'utf-8');
   const input = file.split(/\r?\n/).map((number) => Number(number));

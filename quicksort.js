@@ -16,14 +16,14 @@ const partition = (array, l, r) => {
 };
 
 const choosePivotMedian = (array, l, r) => {
-  const m = Math.floor(r / 2);
-  if (array[l] <= array[m] && array[m] <= array[r]) return m;
-  if (array[r] <= array[m] && array[m] <= array[l]) return m;
-  if (array[l] <= array[r] && array[r] <= array[m]) return r;
-  if (array[m] <= array[r] && array[r] <= array[l]) return r;
-  if (array[m] <= array[l] && array[l] <= array[r]) return l;
-  if (array[r] <= array[l] && array[l] <= array[m]) return l;
-  return m;
+  const m = Math.floor((r - l) / 2);
+  if ((array[l] <= array[m] && array[m] <= array[r])
+    || (array[r] <= array[m] && array[m] <= array[l])) return array[m];
+  if ((array[l] <= array[r] && array[r] <= array[m])
+    || (array[m] <= array[r] && array[r] <= array[l])) return array[r];
+  if ((array[m] <= array[l] && array[l] <= array[r])
+    || (array[r] <= array[l] && array[l] <= array[m])) return array[l];
+  return array[m];
 };
 
 /**
@@ -41,9 +41,9 @@ const quickSort = (array, l, r, pivotOption = 0, comparisons = 0) => {
   if (l >= r) {
     return comparisons;
   }
-  const pivots = [l, r, choosePivotMedian(array, l, r)];
-  const i = pivots[pivotOption];
-  ([array[l], array[i]] = [array[i], array[l]]);
+  const pivotOptions = [l, r, choosePivotMedian(array, l, r)];
+  const pivot = pivotOptions[pivotOption];
+  ([array[pivot], array[l]] = [array[l], array[pivot]]);
   const j = partition(array, l, r);
   const comparisonLeft = quickSort(array, l, j - 1, pivotOption, comparisons);
   const comparisonRight = quickSort(array, j + 1, r, pivotOption, comparisons);
@@ -51,13 +51,13 @@ const quickSort = (array, l, r, pivotOption = 0, comparisons = 0) => {
   return comparisons + comparisonLeft + comparisonRight + r - l;
 };
 
-module.exports = { partition, quickSort };
+module.exports = { partition, choosePivotMedian, quickSort };
 
 const input = readInput('quicksort-input.txt');
 const array = input.slice();
 
-const result = quickSort(array, 0, array.length - 1, 0);
+const result = quickSort(array, 0, array.length - 1, 2);
 const resultNative = sortBy(input);
 
-console.log('sorted correctly =', isEqual(array, resultNative));
+console.log('sorted correctly =', array, isEqual(array, resultNative));
 console.log('comparisons =', result);
