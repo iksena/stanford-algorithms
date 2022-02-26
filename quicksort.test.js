@@ -1,7 +1,7 @@
 const { readInput } = require('.');
 const { quickSort, choosePivotMedian, constants: { PIVOT } } = require('./quicksort');
 
-const testComparisons = (testCase = '01_5') => () => {
+const testComparisons = (testCase, count) => () => {
   const input = readInput(`../stanford-algs/testCases/course1/assignment3Quicksort/input_dgrcode_${testCase}.txt`);
   const lastIndex = input.length - 1;
   const [expected1, expected2, expected3] = readInput(`../stanford-algs/testCases/course1/assignment3Quicksort/output_dgrcode_${testCase}.txt`);
@@ -12,19 +12,20 @@ const testComparisons = (testCase = '01_5') => () => {
   console.log(`Expected=${expected1},${expected2},${expected3}
   Result=${comparison1},${comparison2},${comparison3}`);
 
+  expect(input.length).toBe(count);
   expect(comparison1).toBe(expected1);
   expect(comparison2).toBe(expected2);
   expect(comparison3).toBe(expected3);
 };
 
 describe('QuickSort Comparisons', () => {
-  it('should correctly count comparisons 01_5', testComparisons('01_5'));
+  it('should correctly count comparisons 01_5', testComparisons('01_5', 5));
 
-  it('should correctly count comparisons 06_10', testComparisons('06_10'));
+  it('should correctly count comparisons 06_10', testComparisons('06_10', 10));
 
-  it('should correctly count comparisons 15_20', testComparisons('15_20'));
+  it('should correctly count comparisons 15_20', testComparisons('15_20', 20));
 
-  it('should correctly count comparisons 18_100000', testComparisons('18_100000'));
+  it('should correctly count comparisons 18_100000', testComparisons('18_100000', 100000));
 });
 
 describe('Median of three', () => {
@@ -33,7 +34,7 @@ describe('Median of three', () => {
 
     const median = choosePivotMedian(input, 0, input.length - 1);
 
-    expect(median).toBe(10);
+    expect(input[median]).toBe(10);
   });
 
   it('should return correct median=7', () => {
@@ -41,7 +42,7 @@ describe('Median of three', () => {
 
     const median = choosePivotMedian(input, 0, input.length - 1);
 
-    expect(median).toBe(7);
+    expect(input[median]).toBe(7);
   });
 
   it('should return correct median=6', () => {
@@ -49,7 +50,7 @@ describe('Median of three', () => {
 
     const median = choosePivotMedian(input, 0, input.length - 1);
 
-    expect(median).toBe(6);
+    expect(input[median]).toBe(6);
   });
 
   it('should return correct median=18', () => {
@@ -57,6 +58,6 @@ describe('Median of three', () => {
 
     const median = choosePivotMedian(input, 0, input.length - 1);
 
-    expect(median).toBe(18);
+    expect(input[median]).toBe(18);
   });
 });

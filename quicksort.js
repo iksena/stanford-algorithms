@@ -5,7 +5,7 @@ const constants = {
   PIVOT: {
     FIRST_INDEX: 0, // 162085
     LAST_INDEX: 1, // 164123
-    MEDIAN_OF_THREE: 2, // 157391
+    MEDIAN_OF_THREE: 2, // 138382
   },
 };
 
@@ -26,12 +26,12 @@ const partition = (array, l, r) => {
 const choosePivotMedian = (array, l, r) => {
   const m = Math.floor((r + l) / 2);
   if ((array[l] <= array[m] && array[m] <= array[r])
-    || (array[r] <= array[m] && array[m] <= array[l])) return array[m];
+    || (array[r] <= array[m] && array[m] <= array[l])) return m;
   if ((array[m] <= array[l] && array[l] <= array[r])
-    || (array[r] <= array[l] && array[l] <= array[m])) return array[l];
+    || (array[r] <= array[l] && array[l] <= array[m])) return l;
   if ((array[l] <= array[r] && array[r] <= array[m])
-    || (array[m] <= array[r] && array[r] <= array[l])) return array[r];
-  return array[m];
+    || (array[m] <= array[r] && array[r] <= array[l])) return r;
+  return m;
 };
 
 /**
@@ -74,4 +74,4 @@ const assignment3 = (pivotOption) => {
   console.log('comparisons =', result);
 };
 
-// assignment3(constants.PIVOT.FIRST_INDEX);
+assignment3(constants.PIVOT.MEDIAN_OF_THREE);

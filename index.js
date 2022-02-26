@@ -9,7 +9,7 @@ const { mergeSort } = require('./inversions');
  */
 const readInput = (filename) => {
   const file = fs.readFileSync(path.join(__dirname, filename), 'utf-8');
-  const input = file.split(/\r?\n/).map((number) => Number(number));
+  const input = file.split(/\r?\n/).filter((line) => !!line).map((number) => Number(number));
 
   return input;
 };
