@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1644726569267" clover="3.2.0">
-  <project timestamp="1644726569267" name="All files">
+<coverage generated="1644732973452" clover="3.2.0">
+  <project timestamp="1644732973452" name="All files">
     <metrics statements="32" coveredstatements="32" conditionals="8" coveredconditionals="8" methods="2" coveredmethods="2" elements="42" coveredelements="42" complexity="0" loc="32" ncloc="32" packages="1" files="1" classes="1"/>
     <file name="inversions.js" path="/Users/19058355/Documents/playground/coursera-dnq/inversions.js">
       <metrics statements="32" coveredstatements="32" conditionals="8" coveredconditionals="8" methods="2" coveredmethods="2"/>
