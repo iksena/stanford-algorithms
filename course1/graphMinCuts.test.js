@@ -1,5 +1,5 @@
 const {
-  readGraph, findCuts, kargerMinCut,
+  readGraph, kargerMinCut,
 } = require('./graphMinCuts');
 const { readInput } = require('.');
 
@@ -17,10 +17,10 @@ describe('Graph Min Cuts', () => {
     it('should return correct min cut for 3_6', runTestCase('3_6'));
     it('should return correct min cut for 8_10', runTestCase('8_10'));
     it('should return correct min cut for 15_50', runTestCase('15_50'));
-    // it('should return correct min cut for 19_75', runTestCase('19_75'));
+    it('should return correct min cut for 19_75', runTestCase('19_75'));
     // it('should return correct min cut for 24_100', runTestCase('24_100'));
     // it('should return correct min cut for 25_125', runTestCase('25_125'));
     // it('should return correct min cut for 31_150', runTestCase('31_150'));
-    // it('should return correct min cut for 38_200', runTestCase('38_200'));
+    // it('should return correct min cut for 40_200', runTestCase('40_200'));
   });
 });

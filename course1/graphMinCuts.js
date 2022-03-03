@@ -85,3 +85,13 @@ const kargerMinCut = (graph) => {
 module.exports = {
   readGraph, constraintEdge, pickRandomEdge, findCuts, kargerMinCut,
 };
+
+const assignment4 = () => {
+  const graph = readGraph('kargerMinCut.txt');
+  const result = kargerMinCut(graph);
+
+  console.log('size', graph.size);
+  console.log('result', result); // = 17
+};
+
+assignment4();
