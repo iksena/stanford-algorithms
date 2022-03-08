@@ -29,7 +29,7 @@ const constraintEdge = (graph, tail, head) => {
   );
   graph.delete(head);
   graph.forEach((edges, node) => {
-    // replace merged edge with paralel edge
+    // replace merged node with supernode
     graph.set(node, edges.map((edge) => (edge === head ? tail : edge)));
   });
 
