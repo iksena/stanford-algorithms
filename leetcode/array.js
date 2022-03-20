@@ -220,4 +220,26 @@ const moveZeroesArray = () => {
   console.log(moveZeroes([0]));
 };
 
-moveZeroesArray();
+const sumOfTwoInArray = () => {
+  const q = [2, 7, 11, 15];
+
+  // eslint-disable-next-line consistent-return
+  const sumOfTwo = (nums, target) => {
+    const memory = {};
+    for (let i = 0; i < nums.length; i++) {
+      if (memory[nums[i]] === undefined) {
+        memory[nums[i]] = i;
+      }
+      const pair = target - nums[i];
+      if (memory[pair] !== undefined && memory[pair] !== i) {
+        return [memory[pair], i];
+      }
+    }
+  };
+
+  console.log(sumOfTwo(q, 9));
+  console.log(sumOfTwo([3, 3], 6));
+  console.log(sumOfTwo([3, 2, 4], 6));
+};
+
+sumOfTwoInArray();
