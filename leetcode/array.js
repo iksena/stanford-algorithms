@@ -171,4 +171,32 @@ const intersectionArray = () => {
   console.log(intersect([1, 2, 2, 1], [2, 2]));
 };
 
-intersectionArray();
+const arrayPlusOne = () => {
+  const digits1 = [1, 2, 3]; // =124
+  const digits2 = [4, 9, 9]; // =500
+
+  const plusOne = (digits, lastIndex = null) => {
+    if (lastIndex === null) {
+      lastIndex = digits.length - 1;
+    }
+
+    if (lastIndex < 0) {
+      digits.unshift(1);
+      return digits;
+    }
+
+    if (digits[lastIndex] < 9) {
+      digits[lastIndex] += 1;
+      return digits;
+    }
+
+    digits[lastIndex] = 0;
+    return plusOne(digits, lastIndex - 1);
+  };
+
+  console.log(plusOne(digits1));
+  console.log(plusOne(digits2));
+  console.log(plusOne([9])); // =10
+};
+
+arrayPlusOne();
