@@ -242,4 +242,74 @@ const sumOfTwoInArray = () => {
   console.log(sumOfTwo([3, 2, 4], 6));
 };
 
-sumOfTwoInArray();
+const validSudokuMatrix = () => {
+  const board1 = [
+    ['5', '3', '.', '.', '7', '.', '.', '.', '.'],
+    ['6', '.', '.', '1', '9', '5', '.', '.', '.'],
+    ['.', '9', '8', '.', '.', '.', '.', '6', '.'],
+    ['8', '.', '.', '.', '6', '.', '.', '.', '3'],
+    ['4', '.', '.', '8', '.', '3', '.', '.', '1'],
+    ['7', '.', '.', '.', '2', '.', '.', '.', '6'],
+    ['.', '6', '.', '.', '.', '.', '2', '8', '.'],
+    ['.', '.', '.', '4', '1', '9', '.', '.', '5'],
+    ['.', '.', '.', '.', '8', '.', '.', '7', '9'],
+  ];
+
+  // eslint-disable-next-line consistent-return
+  const isSudokuValid = (board) => {
+    const memory = {
+      row: {},
+      column: {},
+      box: {},
+    };
+    const boxes = [
+      [1, 1, 1, 2, 2, 2, 3, 3, 3],
+      [1, 1, 1, 2, 2, 2, 3, 3, 3],
+      [1, 1, 1, 2, 2, 2, 3, 3, 3],
+      [4, 4, 4, 5, 5, 5, 6, 6, 6],
+      [4, 4, 4, 5, 5, 5, 6, 6, 6],
+      [4, 4, 4, 5, 5, 5, 6, 6, 6],
+      [7, 7, 7, 8, 8, 8, 9, 9, 9],
+      [7, 7, 7, 8, 8, 8, 9, 9, 9],
+      [7, 7, 7, 8, 8, 8, 9, 9, 9],
+    ];
+    const empty = '.';
+    for (let i = 0; i < board.length; i++) {
+      for (let j = 0; j < board[i].length; j++) {
+        if (board[i][j] === empty) {
+          // eslint-disable-next-line no-continue
+          continue;
+        }
+        const element = board[i][j];
+        const box = boxes[i][j];
+        if (memory.row[i]?.[element]) {
+          return false;
+        }
+        if (memory.column[j]?.[element]) {
+          return false;
+        }
+        if (memory.box[box]?.[element]) {
+          return false;
+        }
+        memory.row[i] = { ...memory.row[i], [element]: true };
+        memory.column[j] = { ...memory.column[j], [element]: true };
+        memory.box[box] = { ...memory.box[box], [element]: true };
+      }
+    }
+
+    return true;
+  };
+
+  console.log(isSudokuValid(board1));
+  console.log(isSudokuValid([['8', '3', '.', '.', '7', '.', '.', '.', '.'],
+    ['6', '.', '.', '1', '9', '5', '.', '.', '.'],
+    ['.', '9', '8', '.', '.', '.', '.', '6', '.'],
+    ['8', '.', '.', '.', '6', '.', '.', '.', '3'],
+    ['4', '.', '.', '8', '.', '3', '.', '.', '1'],
+    ['7', '.', '.', '.', '2', '.', '.', '.', '6'],
+    ['.', '6', '.', '.', '.', '.', '2', '8', '.'],
+    ['.', '.', '.', '4', '1', '9', '.', '.', '5'],
+    ['.', '.', '.', '.', '8', '.', '.', '7', '9']]));
+};
+
+validSudokuMatrix();
