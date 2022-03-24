@@ -76,4 +76,30 @@ const firstUniqueInString = () => {
   console.log(firstUnique('leetcode'));
 };
 
-firstUniqueInString();
+const validAnagramString = () => {
+  const s1 = 'anagram';
+  const t1 = 'nagaram';
+
+  const validAnagram = (s, t) => {
+    if (s.length !== t.length) {
+      return false;
+    }
+    const memory = { s: {}, t: {} };
+    for (let i = 0; i < s.length; i++) {
+      memory.s[s[i]] = (memory.s[s[i]] || 0) + 1;
+      memory.t[t[i]] = (memory.t[t[i]] || 0) + 1;
+    }
+
+    let isAnagram = true;
+    Object.entries(memory.s).forEach(([key, value]) => {
+      isAnagram = isAnagram && memory.t[key] === value;
+    });
+    return isAnagram;
+  };
+
+  console.log(validAnagram(s1, t1));
+  console.log(validAnagram('car', 'ra'));
+  console.log(validAnagram('aacc', 'ccac'));
+};
+
+validAnagramString();
