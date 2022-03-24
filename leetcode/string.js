@@ -51,4 +51,29 @@ const reverseInteger = () => {
   console.log(reverseInt(1534236469));
 };
 
-reverseInteger();
+const firstUniqueInString = () => {
+  const q = 'loveleetcode';
+
+  const firstUnique = (s) => {
+    const memory = {};
+    // eslint-disable-next-line guard-for-in,no-restricted-syntax
+    for (let index = 0; index < s.length; index++) {
+      const c = s[index];
+      if (!memory[c]) {
+        memory[c] = {
+          count: 0,
+          index,
+        };
+      }
+      memory[c].count += 1;
+    }
+    const result = Object.values(memory).find(({ count }) => count < 2);
+    return result?.index ?? -1;
+  };
+
+  console.log(firstUnique(q));
+  console.log(firstUnique('aabb'));
+  console.log(firstUnique('leetcode'));
+};
+
+firstUniqueInString();
