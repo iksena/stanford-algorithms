@@ -1,3 +1,4 @@
+/* eslint-disable no-continue */
 const reverseString = () => {
   const q = ['H', 'e', 'n', 'n', 'a', 'h', 'r'];
 
@@ -102,4 +103,58 @@ const validAnagramString = () => {
   console.log(validAnagram('aacc', 'ccac'));
 };
 
-validAnagramString();
+const validPalindromeString = () => {
+  const q = 'A man, a plan, a canal: Panama';
+
+  const validPalindrome = (s) => {
+    const words = s.replace(/[^a-zA-Z0-9]/ig, '').toLowerCase();
+    return words === [...words].reverse().join('');
+  };
+
+  console.log(validPalindrome(q));
+  console.log(validPalindrome('race a car'));
+  console.log(validPalindrome(' '));
+};
+
+const atoiString = () => {
+  const q = '   -42';
+
+  const concat = (s) => {
+    let number = '';
+    for (let i = 0; i < s.length; i++) {
+      if (number.length > 0 && (
+        (['-', '+'].includes(s[i])
+          || !Number.isInteger(Number(s[i]))
+          || s[i] === ' '
+        ))
+      ) {
+        return number;
+      }
+      if (s[i] === ' ') {
+        continue;
+      }
+      number += s[i];
+    }
+
+    return number;
+  };
+
+  const atoi = (s) => {
+    const range = 2147483648;
+    const number = Number(concat(s));
+    if (Number.isNaN(number)) return 0;
+    if (number < -1 * range) return -1 * range;
+    if (number > range - 1) return range - 1;
+    return number;
+  };
+
+  console.log(atoi(q));
+  console.log(atoi('   4193 with words')); // 4193
+  console.log(atoi('-91283472332')); //= -2147483648
+  console.log(atoi('-+12')); //= 0
+  console.log(atoi('00000-42a1234')); //= 0
+  console.log(atoi('   +0 123')); //= 0
+  console.log(atoi('-13+8')); //= -13
+};
+
+atoiString();
