@@ -157,4 +157,31 @@ const atoiString = () => {
   console.log(atoi('-13+8')); //= -13
 };
 
-atoiString();
+const implementStrStr = () => {
+  const h1 = 'hello';
+  const n1 = 'll';
+
+  const strStr = (haystack, needle) => {
+    const needleLength = needle.length;
+    for (let i = 0; i < haystack.length; i++) {
+      const j = i + needleLength;
+      if (j <= haystack.length) {
+        if (needle === haystack.slice(i, j)) {
+          return i;
+        }
+      } else {
+        return -1;
+      }
+    }
+
+    if (needle.length > 0) return -1;
+    return 0;
+  };
+
+  console.log(strStr(h1, n1));
+  console.log(strStr('aaaaa', 'bba'));
+  console.log(strStr('', ''));
+  console.log(strStr('a', 'a'));
+};
+
+implementStrStr();
