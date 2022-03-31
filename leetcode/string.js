@@ -184,4 +184,47 @@ const implementStrStr = () => {
   console.log(strStr('a', 'a'));
 };
 
-implementStrStr();
+const longestPrefixStrings = () => {
+  const q = ['flower', 'flow', 'flight'];
+
+  const longestPrefix = (strs) => {
+    let prefix = '';
+    let word = 0;
+    let c = 0;
+    let char = strs[word][c];
+    while (word < strs.length) {
+      if (strs[word][c] === char) {
+        if (word >= strs.length - 1 && !!char) {
+          prefix += char;
+          c++;
+          word = 0;
+          char = strs[word][c];
+        }
+        word++;
+      } else {
+        return prefix;
+      }
+    }
+
+    return prefix;
+  };
+
+  const longestCommonPrefix = function (strs) {
+    let prefix = strs[0];
+
+    // eslint-disable-next-line no-restricted-syntax
+    for (const word of strs) {
+      while (word.indexOf(prefix) !== 0) {
+        prefix = prefix.substring(0, prefix.length - 1);
+      }
+    }
+
+    return prefix;
+  };
+
+  console.log(longestPrefix(q));
+  console.log(longestPrefix(['dog', 'racecar', 'car']));
+  console.log(longestPrefix(['']));
+};
+
+longestPrefixStrings();
