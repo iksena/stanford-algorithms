@@ -20,4 +20,26 @@ const fizzBuzzProblem = () => {
   console.log(fizzBuzz(q));
 };
 
-fizzBuzzProblem();
+const combinationalSum = () => {
+  const arr = [2, 4, 6, 8];
+  const res = 8;
+
+  const solution = (array, result) => {
+    const combinations = [];
+    for (let index = 0; index < array.length; index++) {
+      const combination = [];
+      let residue = result;
+      while (residue > 0) {
+        residue -= array[index];
+        combination.push(array[index]);
+      }
+
+      if (residue === 0) combinations.push(combination);
+    }
+    return combinations;
+  };
+
+  console.log(solution(arr, res));
+};
+
+combinationalSum();

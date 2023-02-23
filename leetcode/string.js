@@ -227,4 +227,87 @@ const longestPrefixStrings = () => {
   console.log(longestPrefix(['']));
 };
 
-longestPrefixStrings();
+const validGlobalParantheses = () => {
+  const t1 = '()[]{}';
+  const t2 = '([)]';
+  const t3 = '({})';
+
+  const validateParantheses = (parantheses) => {
+    const openedBrackets = {
+      stack: [],
+      round: 0,
+      box: 0,
+      curly: 0,
+    };
+    const defineFunction = (type, isOpen) => ({
+      calculate: () => {
+        if (isOpen) {
+          openedBrackets[type]++;
+          return openedBrackets.stack.push(type);
+        }
+
+        openedBrackets[type]--;
+        if (openedBrackets.stack[openedBrackets.stack.length - 1] === type) {
+          return openedBrackets.stack.pop();
+        }
+        return false;
+      },
+    });
+    const dictionary = {
+      '(': defineFunction('round', true),
+      ')': defineFunction('round', false),
+      '[': defineFunction('box', true),
+      ']': defineFunction('box', false),
+      '{': defineFunction('curly', true),
+      '}': defineFunction('curly', false),
+    };
+
+    for (let index = 0; index < parantheses.length; index++) {
+      const char = parantheses.charAt(index);
+
+      if (dictionary[char]) {
+        dictionary[char].calculate();
+      }
+    }
+
+    return openedBrackets.stack.length === 0
+      && openedBrackets.round === 0
+      && openedBrackets.box === 0
+      && openedBrackets.curly === 0;
+  };
+
+  console.log(validateParantheses(t1));
+  console.log(validateParantheses('}'));
+};
+
+const validParantheses = () => {
+  const t1 = '()[]{}';
+  const t2 = '([)]';
+
+  const validateParantheses = (parantheses) => {
+    let openedBrackets = '';
+    const dictionary = {
+      '(': ')',
+      '[': ']',
+      '{': '}',
+    };
+
+    for (let index = 0; index < parantheses.length; index++) {
+      const char = parantheses.charAt(index);
+
+      if (dictionary[char]) {
+        openedBrackets = char;
+      } else if (openedBrackets !== '' && dictionary[openedBrackets] === char) {
+        openedBrackets = '';
+      } else {
+        return false;
+      }
+    }
+
+    return openedBrackets === '';
+  };
+
+  console.log(validateParantheses(t2));
+};
+
+validGlobalParantheses();

@@ -55,7 +55,7 @@ const firstBadVersion = () => {
       return badVersion + 1;
     }
     const half = Math.ceil(n / 2);
-    console.log(half);
+
     if (isBadVersionFunc(half)) {
       return findFirstBad(isBadVersionFunc, half - 1);
     }

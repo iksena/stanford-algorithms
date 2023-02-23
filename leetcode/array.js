@@ -27,8 +27,10 @@ const removeDuplicatesProblem = () => {
     return duplicatePointer + 1;
   };
 
-  console.log(removeDuplicates2(q1));
+  console.log(removeDuplicates2(q1), q1);
 };
+
+// removeDuplicatesProblem();
 
 const maxProfitProblem = () => {
   const prices1 = [7, 1, 5, 3, 6, 4];
@@ -65,6 +67,8 @@ const maxProfitProblem = () => {
   console.log(maxProfit(prices1));
 };
 
+// maxProfitProblem();
+
 const containsDuplicatesProblem = () => {
   const q = [1, 2, 3, 4, 5, 6, 7, 8, 9, 12, 13, 2];
 
@@ -84,6 +88,8 @@ const containsDuplicatesProblem = () => {
 
   console.log(containsDuplicate(q));
 };
+
+// containsDuplicatesProblem();
 
 const rotateProblem = () => {
   const nums1 = [1, 2, 3, 4, 5, 6, 7];
@@ -109,6 +115,8 @@ const rotateProblem = () => {
   console.log(rotate([-1, -100, 3, 99], 2));
   console.log(rotate([1, 2, 3, 4, 5, 6], 11));
 };
+
+rotateProblem();
 
 const singleNumberProblem = () => {
   const q = [4, 1, 2, 1, 2, 4, 3, 6, 6]; // = 4
@@ -340,5 +348,3 @@ const matrixRotationProblem = () => {
   console.log(rotateMatrix([[1, 2], [3, 4]]));
   console.log(rotateMatrix([[5, 1, 9, 11], [2, 4, 8, 10], [13, 3, 6, 7], [15, 14, 12, 16]]));
 };
-
-matrixRotationProblem();
