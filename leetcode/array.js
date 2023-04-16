@@ -116,7 +116,7 @@ const rotateProblem = () => {
   console.log(rotate([1, 2, 3, 4, 5, 6], 11));
 };
 
-rotateProblem();
+// rotateProblem();
 
 const singleNumberProblem = () => {
   const q = [4, 1, 2, 1, 2, 4, 3, 6, 6]; // = 4
@@ -348,3 +348,42 @@ const matrixRotationProblem = () => {
   console.log(rotateMatrix([[1, 2], [3, 4]]));
   console.log(rotateMatrix([[5, 1, 9, 11], [2, 4, 8, 10], [13, 3, 6, 7], [15, 14, 12, 16]]));
 };
+
+const duplicateZerosProblem = () => {
+  const array1 = [1, 0, 2, 3, 0, 4, 5, 0];
+  const answer1 = [1, 0, 0, 2, 3, 0, 0, 4];
+
+  const array2 = [0, 0, 0, 0, 0, 0, 0];
+  const answer2 = [0, 0, 0, 0, 0, 0, 0];
+
+  const insertAt = (array, indexAt, value) => {
+    if (indexAt > array.length - 1) return array;
+
+    for (let index = array.length - 2; index >= indexAt; index--) {
+      array[index + 1] = array[index];
+    }
+    array[indexAt] = value;
+
+    return array;
+  };
+
+  const duplicateZeros = (array, index = 0) => {
+    const element = array[index];
+
+    if (index > array.length - 1) {
+      return array;
+    }
+
+    if (element === 0) {
+      insertAt(array, index + 1, 0);
+      return duplicateZeros(array, index + 2);
+    }
+
+    return duplicateZeros(array, index + 1);
+  };
+
+  // console.log(duplicateZeros(array1), answer1);
+  console.log(duplicateZeros(array2), answer2);
+};
+
+duplicateZerosProblem();
