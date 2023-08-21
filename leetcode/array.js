@@ -175,6 +175,27 @@ const intersectionArray = () => {
     return intersection;
   };
 
+  const intersect2 = (nums1, nums2) => {
+    const memory = {};
+    nums1.forEach((num1) => {
+      memory[num1] = {
+        left: (memory[num1]?.left || 0) + 1,
+      };
+    });
+
+    const intersection = [];
+    nums2.forEach((num2) => {
+      if (memory[num2]?.left > 0) {
+        memory[num2].right = (memory[num2].right || 0) + 1;
+        if (memory[num2].right <= memory[num2].left) {
+          intersection.push(num2);
+        }
+      }
+    });
+
+    return intersection;
+  };
+
   console.log(intersect(q1, q2));
   console.log(intersect([1, 2, 2, 1], [2, 2]));
 };
