@@ -49,31 +49,29 @@ MyHashSet.prototype.contains = function (key) {
 const happyNumberProblem = () => {
   const q1 = 19;
 
-  const memory = {};
   const isHappy = (number) => {
-    const numbers = String(number).split('');
-    console.log(numbers);
-    let sumOfSquared = 0;
-    for (let index = 0; index < numbers.length; index++) {
-      const element = numbers[index];
-      sumOfSquared += Number(element) ** 2;
-    }
-    if (sumOfSquared === 1) {
-      return true;
-    }
+    const memory = {};
+    let sumOfSquared = number;
+    do {
+      const numbers = String(sumOfSquared).split('');
+      console.log(numbers);
+      sumOfSquared = 0;
+      for (let index = 0; index < numbers.length; index++) {
+        const element = numbers[index];
+        sumOfSquared += Number(element) ** 2;
+      }
 
-    if (memory[sumOfSquared] !== undefined) {
-      return false;
-    }
+      if (memory[sumOfSquared] !== undefined) return false;
 
-    memory[sumOfSquared] = number;
+      memory[sumOfSquared] = true;
+    } while (sumOfSquared !== 1);
 
-    return isHappy(sumOfSquared);
+    return true;
   };
 
-  // console.log(isHappy(q1), '= true ?');
+  console.log(isHappy(q1), '= true ?');
   console.log(isHappy(13), '= true ?');
-  // console.log(isHappy(2), '= false ?');
+  console.log(isHappy(2), '= false ?');
   // circular ['2']:
   //   ['4']
   //   ['1', '6']
@@ -85,4 +83,53 @@ const happyNumberProblem = () => {
   //   ['2', '0'];
 };
 
-happyNumberProblem();
+// happyNumberProblem();
+
+const isomorphicStringProblem = () => {
+  const s1 = 'paper';
+  const t1 = 'title';
+
+  const isIsomorphicString = (s, t) => {
+    const memoryS = {};
+    const memoryT = {};
+    if (s.length <= 1 && s.length === t.length) {
+      return true;
+    }
+    for (let index = 0; index < s.length; index++) {
+      const charS = s.charAt(index);
+      const charT = t.charAt(index);
+      if(memoryS[charS] === )
+      memoryS[charS] = charT;
+      memoryT[charT] = charS;
+    }
+
+    console.log(memoryS, memoryT);
+
+    const lengthS = Object.getOwnPropertyNames(memoryS).length;
+    const lengthT = Object.getOwnPropertyNames(memoryT).length;
+
+    return lengthS === lengthT;
+
+    // if (!memoryS[charS]) {
+    //   memoryS[charS] = charT;
+    // } else if (!memory[charT]) {
+    //   memory[charT] = charS;
+    // } else if (memory[charS] === charT || memory[charT] === charS) {
+    //   isIsomorphic = true;
+    // } else {
+    //   isIsomorphic = false;
+    // }
+
+    // return isIsomorphic;
+  };
+
+  console.log(isIsomorphicString(s1, t1)); // true
+  console.log(isIsomorphicString('foo', 'bar')); // false
+  console.log(isIsomorphicString('egg', 'add')); // true
+  console.log(isIsomorphicString('badc', 'baba')); // false
+  console.log(isIsomorphicString('a', 'a')); // true
+  console.log(isIsomorphicString('ab', 'ab')); // true
+  console.log(isIsomorphicString('bbbaaaba', 'aaabbbba')); // false
+};
+
+isomorphicStringProblem();
