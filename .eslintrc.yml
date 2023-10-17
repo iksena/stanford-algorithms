@@ -14,3 +14,4 @@ rules:
   no-unused-vars: warn
   no-loss-of-precision: warn
   no-param-reassign: warn
+  no-console: off
