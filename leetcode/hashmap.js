@@ -123,16 +123,39 @@ const isomorphicStringProblem = () => {
     // return isIsomorphic;
   };
 
-  console.log(isIsomorphicString(s1, t1)); // true
-  console.log(isIsomorphicString('foo', 'bar')); // false
-  console.log(isIsomorphicString('egg', 'add')); // true
-  console.log(isIsomorphicString('badc', 'baba')); // false
-  console.log(isIsomorphicString('a', 'a')); // true
-  console.log(isIsomorphicString('ab', 'ab')); // true
-  console.log(isIsomorphicString('bbbaaaba', 'aaabbbba')); // false
+  const isIsomorphic = (s, t) => {
+    const hashmap1 = {};
+    for (let index = 0; index < s.length; index++) {
+      const element = s.charAt(index);
+      if (!hashmap1[element]) {
+        hashmap1[element] = t.charAt(index);
+      } else if (hashmap1[element] !== t.charAt(index)) {
+        return false;
+      }
+    }
+    const hashmap2 = {};
+    for (let index = 0; index < t.length; index++) {
+      const element = t.charAt(index);
+      if (!hashmap2[element]) {
+        hashmap2[element] = s.charAt(index);
+      } else if (hashmap2[element] !== s.charAt(index)) {
+        return false;
+      }
+    }
+
+    return true;
+  };
+
+  console.log(isIsomorphic(s1, t1)); // true
+  console.log(isIsomorphic('foo', 'bar')); // false
+  console.log(isIsomorphic('egg', 'add')); // true
+  console.log(isIsomorphic('badc', 'baba')); // false
+  console.log(isIsomorphic('a', 'a')); // true
+  console.log(isIsomorphic('ab', 'ab')); // true
+  console.log(isIsomorphic('bbbaaaba', 'aaabbbba')); // false
 };
 
-// isomorphicStringProblem();
+isomorphicStringProblem();
 
 const minimumIndexSumOfTwoLists = () => {
   const q1 = ['Shogun', 'Tapioca Express', 'Burger King', 'KFC'];
@@ -248,4 +271,4 @@ const intersectionProblem = () => {
   console.log(intersectionSimple([1], []));
 };
 
-intersectionProblem();
+// intersectionProblem();
