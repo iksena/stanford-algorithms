@@ -161,4 +161,91 @@ const minimumIndexSumOfTwoLists = () => {
   commonStringLeastIndexSum(['happy', 'sad', 'good'], ['sad', 'happy', 'good']);
 };
 
-minimumIndexSumOfTwoLists();
+// minimumIndexSumOfTwoLists();
+
+const intersectionProblem = () => {
+  const q1 = [4, 9, 5];
+  const q2 = [9, 4, 9, 8, 4];
+
+  const intersection = (nums1, nums2) => {
+    const hashmap = {};
+    for (let index = 0; index < nums1.length; index++) {
+      const element = nums1[index];
+      hashmap[element] = { left: ((hashmap[element] || {}).left || 0) + 1 };
+    }
+
+    for (let index = 0; index < nums2.length; index++) {
+      const element = nums2[index];
+      hashmap[element] = { ...hashmap[element], right: ((hashmap[element] || {}).right || 0) + 1 };
+    }
+
+    return Object.entries(hashmap).reduce((intersections, [key, { left, right }]) => {
+      if (left > 0 && right > 0) {
+        return [...intersections, key];
+      }
+
+      return intersections;
+    }, []);
+  };
+
+  const intersectionSet = (nums1, nums2) => {
+    const hashmap = {};
+    const set1 = new Set(nums1); // O(m)
+    const set2 = new Set(nums2); // O(n)
+
+    set1.forEach((value) => { hashmap[value] = 1; }); // O(m)
+    set2.forEach((value) => { hashmap[value] = (hashmap[value] || 0) + 1; }); // O(n)
+
+    return Object.entries(hashmap).reduce((intersections, [key, count]) => { // O(m+n)
+      if (count > 1) {
+        return [...intersections, key];
+      }
+
+      return intersections;
+    }, []);
+  };
+
+  const intersectionSetWithoutHash = (nums1, nums2) => {
+    const set1 = new Set(nums1); // O(m)
+    const set2 = new Set(nums2); // O(n)
+    const intersections = new Set();
+    const k = set1.size + set2.size;
+    let i = 0;
+    let j = 0;
+    while (i < k && j < k) {
+      if (j < nums2.length && set1.has(nums2[j])) {
+        if (!intersections.has(nums2[j])) { intersections.add(nums2[j]); }
+        j++;
+      } else if (i < nums1.length && set2.has(nums1[i])) {
+        if (!intersections.has(nums1[i])) { intersections.add(nums1[i]); }
+        i++;
+      } else {
+        i++;
+        j++;
+      }
+    }
+
+    return [...intersections.values()];
+  };
+
+  const intersectionSimple = (nums1, nums2) => {
+    const intersections = [];
+
+    for (let index = 0; index < nums1.length; index++) {
+      const element = nums1[index];
+      if (nums2.includes(element)) {
+        intersections.push(element);
+      }
+    }
+
+    return [...new Set(intersections).values()];
+  };
+
+  console.log(intersectionSimple(q1, q2));
+  console.log(intersectionSimple([1, 2, 2, 1], [2, 2]));
+  console.log(intersectionSimple([1], [1]));
+  console.log(intersectionSimple([1, 1, 2, 2, 2, 2], [3, 3, 3, 3]));
+  console.log(intersectionSimple([1], []));
+};
+
+intersectionProblem();
