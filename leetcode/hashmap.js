@@ -155,7 +155,7 @@ const isomorphicStringProblem = () => {
   console.log(isIsomorphic('bbbaaaba', 'aaabbbba')); // false
 };
 
-isomorphicStringProblem();
+// isomorphicStringProblem();
 
 const minimumIndexSumOfTwoLists = () => {
   const q1 = ['Shogun', 'Tapioca Express', 'Burger King', 'KFC'];
@@ -182,9 +182,10 @@ const minimumIndexSumOfTwoLists = () => {
   commonStringLeastIndexSum(q1, q2);
   commonStringLeastIndexSum(['Shogun', 'Tapioca Express', 'Burger King', 'KFC'], ['KFC', 'Shogun', 'Burger King']);
   commonStringLeastIndexSum(['happy', 'sad', 'good'], ['sad', 'happy', 'good']);
+  commonStringLeastIndexSum(['KFC', 'Shogun', 'Burger King', 'Tapioca Express'], ['Shogun', 'Tapioca Express', 'Burger King', 'KFC']);
 };
 
-// minimumIndexSumOfTwoLists();
+minimumIndexSumOfTwoLists();
 
 const intersectionProblem = () => {
   const q1 = [4, 9, 5];
