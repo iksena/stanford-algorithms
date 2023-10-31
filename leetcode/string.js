@@ -310,4 +310,47 @@ const validParantheses = () => {
   console.log(validateParantheses(t2));
 };
 
-validGlobalParantheses();
+// validGlobalParantheses();
+
+const largestNumberProblem = () => {
+  const q = [3, 30, 34, 5, 9];
+
+  const largestNumberWrong = (numbers) => {
+    const newNumbers = [];
+    for (let index = 0; index < numbers.length; index++) {
+      const element = String(numbers[index]);
+      if (element.length >= 1) {
+        for (let j = 0; j < element.length; j++) {
+          const char = element.charAt(j);
+          newNumbers.push(char);
+        }
+      }
+    }
+
+    return newNumbers.sort((a, b) => Number(b) - Number(a)).join('');
+  };
+
+  const largestNumber = (numbers) => {
+    const memory = {};
+    const newNumbers = [];
+    for (let index = 1; index < 10; index++) {
+      memory[index] = [];
+    }
+    for (let index = 0; index < numbers.length; index++) {
+      const element = numbers[index];
+      const firstNumber = Number(String(element).charAt(0));
+      memory[firstNumber].push(element);
+    }
+    for (let index = 9; index > 0; index--) {
+      if (memory[index].length > 0) {
+        memory[index].sort((a, b) => b - a).forEach((number) => newNumbers.push(number));
+      }
+    }
+
+    return newNumbers.join('');
+  };
+
+  console.log(largestNumber(q));
+};
+
+largestNumberProblem();
