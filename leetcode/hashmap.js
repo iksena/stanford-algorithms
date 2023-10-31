@@ -155,7 +155,7 @@ const isomorphicStringProblem = () => {
   console.log(isIsomorphic('bbbaaaba', 'aaabbbba')); // false
 };
 
-isomorphicStringProblem();
+// isomorphicStringProblem();
 
 const minimumIndexSumOfTwoLists = () => {
   const q1 = ['Shogun', 'Tapioca Express', 'Burger King', 'KFC'];
@@ -165,7 +165,7 @@ const minimumIndexSumOfTwoLists = () => {
     const memory = {};
     let i = 0;
     let j = 0;
-    while (i < list1.length && j < list2.length) {
+    while (i < list1.length && j <= list2.length) {
       if (list1[i] === list2[j]) {
         console.log(list1[i], list2[j], i, j);
         memory[list1[i]] = i + j;
@@ -177,14 +177,27 @@ const minimumIndexSumOfTwoLists = () => {
       }
     }
     console.log(memory);
+
+    const leastIndex = Math.min(...Object.values(memory));
+    return Object.entries(memory).reduce((leastIndexWords, [word, count]) => {
+      if (count === leastIndex) {
+        return [...leastIndexWords, word];
+      }
+
+      return leastIndexWords;
+    }, []);
   };
 
-  commonStringLeastIndexSum(q1, q2);
-  commonStringLeastIndexSum(['Shogun', 'Tapioca Express', 'Burger King', 'KFC'], ['KFC', 'Shogun', 'Burger King']);
-  commonStringLeastIndexSum(['happy', 'sad', 'good'], ['sad', 'happy', 'good']);
+  console.log(commonStringLeastIndexSum(q1, q2));
+  console.log(commonStringLeastIndexSum(['Shogun', 'Tapioca Express', 'Burger King', 'KFC'], ['KFC', 'Shogun', 'Burger King']));
+  console.log(commonStringLeastIndexSum(['happy', 'sad', 'good'], ['sad', 'happy', 'good']));
+  console.log(commonStringLeastIndexSum(
+    ['Shogun', 'Tapioca Express', 'Burger King', 'KFC'],
+    ['KFC', 'The Grill at Torrey Pines', 'Tapioca Express', 'Shogun'],
+  ));
 };
 
-// minimumIndexSumOfTwoLists();
+minimumIndexSumOfTwoLists();
 
 const intersectionProblem = () => {
   const q1 = [4, 9, 5];
