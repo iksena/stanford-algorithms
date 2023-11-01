@@ -163,24 +163,23 @@ const minimumIndexSumOfTwoLists = () => {
 
   const commonStringLeastIndexSum = (list1, list2) => {
     const memory = {};
-    let i = 0;
-    let j = 0;
-    while (i < list1.length && j <= list2.length) {
-      if (list1[i] === list2[j]) {
-        console.log(list1[i], list2[j], i, j);
-        memory[list1[i]] = i + j;
-        i++;
-        j = 0;
-      } else {
-        console.log('else', list1[i], list2[j], i, j);
-        j++;
+    for (let i = 0; i < list1.length; i++) {
+      memory[list1[i]] = [i];
+    }
+    for (let j = 0; j < list2.length; j++) {
+      if (memory[list2[j]] !== undefined) {
+        memory[list2[j]].push(j);
       }
     }
     console.log(memory);
 
-    const leastIndex = Math.min(...Object.values(memory));
-    return Object.entries(memory).reduce((leastIndexWords, [word, count]) => {
-      if (count === leastIndex) {
+    const sumIndex = Object.values(memory)
+      .filter((indexes) => indexes.length > 1)
+      .map(([index1, index2]) => index1 + index2);
+    const leastIndex = Math.min(...sumIndex);
+    console.log(sumIndex);
+    return Object.entries(memory).reduce((leastIndexWords, [word, [index1, index2]]) => {
+      if ((index1 + index2) === leastIndex) {
         return [...leastIndexWords, word];
       }
 
