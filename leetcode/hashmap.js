@@ -196,7 +196,7 @@ const minimumIndexSumOfTwoLists = () => {
   ));
 };
 
-minimumIndexSumOfTwoLists();
+// minimumIndexSumOfTwoLists();
 
 const intersectionProblem = () => {
   const q1 = [4, 9, 5];
@@ -284,3 +284,53 @@ const intersectionProblem = () => {
 };
 
 // intersectionProblem();
+
+const jewelsAndStonesProblem = () => {
+  const qJewels = 'aA';
+  const qStones = 'aAAbbbb';
+
+  // the problem does not need merging
+  const mergeJewelsAndStones = (jewels, stones) => {
+    jewels = jewels.split('').sort().join('');
+    stones = stones.split('').sort().join('');
+    let index = 0;
+    const merged = [];
+    let jewel = 0;
+    let stone = 0;
+    while (jewel < jewels.length && stone < stones.length) {
+      if (jewels[jewel] < stones[stone]) {
+        jewel++;
+      } else if (stones[stone] < jewels[jewel]) {
+        stone++;
+      } else {
+        merged[index] = jewels[jewel];
+        index++;
+        jewel++;
+        stone++;
+      }
+    }
+
+    console.log(Object.keys(merged).length, merged);
+  };
+
+  const countStoneIsJewel = (jewels, stones) => {
+    const jewelMap = {};
+    for (let index = 0; index < jewels.length; index++) {
+      const jewel = jewels[index];
+      jewelMap[jewel] = true;
+    }
+    let countStones = 0;
+    for (let index = 0; index < stones.length; index++) {
+      const stone = stones[index];
+      if (jewelMap[stone]) {
+        countStones++;
+      }
+    }
+    return countStones;
+  };
+
+  console.log(countStoneIsJewel(qJewels, qStones));
+  console.log(countStoneIsJewel('z', 'ZZ'));
+};
+
+jewelsAndStonesProblem();
