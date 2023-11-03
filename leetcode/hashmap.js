@@ -333,4 +333,111 @@ const jewelsAndStonesProblem = () => {
   console.log(countStoneIsJewel('z', 'ZZ'));
 };
 
-jewelsAndStonesProblem();
+// jewelsAndStonesProblem();
+
+const groupAnagramProblem = () => {
+  const q = ['eat', 'tea', 'tan', 'ate', 'nat', 'bat'];
+
+  const groupAnagrams = (strs) => {
+    const anagrams = {};
+    for (let index = 0; index < strs.length; index++) {
+      const element = strs[index];
+      const key = element.split('').sort().join('');
+      if (anagrams[key] === undefined) {
+        anagrams[key] = [element];
+      } else {
+        anagrams[key].push(element);
+      }
+    }
+
+    return Object.values(anagrams);
+  };
+
+  const groupAnagramsPrime = function (strs) {
+    const charToPrime = {
+      a: 2,
+      b: 3,
+      c: 5,
+      d: 7,
+      e: 11,
+      f: 13,
+      g: 17,
+      h: 19,
+      i: 23,
+      j: 29,
+      k: 31,
+      l: 37,
+      m: 41,
+      n: 43,
+      o: 47,
+      p: 53,
+      q: 59,
+      r: 61,
+      s: 67,
+      t: 71,
+      u: 73,
+      v: 79,
+      w: 83,
+      x: 89,
+      y: 97,
+      z: 101,
+    };
+
+    const signatureToIndices = new Map();
+
+    for (let i = 0; i < strs.length; i++) {
+      let signature = 1;
+      for (let j = 0; j < strs[i].length; j++) {
+        const char = strs[i][j];
+        const prime = charToPrime[char];
+        if (prime) {
+          signature *= prime;
+        }
+      }
+      signatureToIndices.set(signature, (signatureToIndices.get(signature) || []).concat(i));
+    }
+
+    const result = [];
+    // eslint-disable-next-line no-restricted-syntax
+    for (const indices of signatureToIndices.values()) {
+      const group = indices.map((index) => strs[index]);
+      result.push(group);
+    }
+
+    return result;
+  };
+
+  console.log(groupAnagrams(q));
+  console.log(groupAnagrams(['']));
+  console.log(groupAnagrams(['a']));
+  console.log(groupAnagrams(['eat', 'tescda', 'tacsdcdn', 'aste', 'nat', 'bat']));
+};
+
+// groupAnagramProblem();
+
+const containDuplicatesDiffIndex = () => {
+  const q = [1, 2, 3, 1];
+  const qK = 3;
+
+  const containDuplicates = (nums, k) => {
+    const numMap = {};
+    for (let index = 0; index < nums.length; index++) {
+      const element = nums[index];
+      console.log(numMap);
+
+      if (numMap[element] !== undefined && Math.abs(numMap[element] - index) <= k) {
+        return true;
+      }
+      numMap[element] = index;
+    }
+
+    return false;
+  };
+
+  console.log(containDuplicates(q, qK));
+  console.log(containDuplicates([1, 0, 1, 1], 1));
+  console.log(containDuplicates([1, 2, 3, 1, 2, 3], 2));
+  console.log(containDuplicates([99, 99], 2));
+};
+
+containDuplicatesDiffIndex();
