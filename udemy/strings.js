@@ -45,4 +45,48 @@ const anagramProblem = () => {
   console.log(isAnagram('egg', 'ggp'));
 };
 
-anagramProblem();
+// anagramProblem();
+function isBelowMinVersion(appVersion, minVersion) {
+  if (typeof appVersion !== 'string'
+    || typeof minVersion !== 'string'
+    || !appVersion
+    || !minVersion) {
+    return false;
+  }
+
+  let result = false;
+  const parseVersionArray = (version) => {
+    if (version.includes('v')) {
+      const [, versionNumber] = version.split('v');
+      return versionNumber.split('.');
+    }
+    return version.split('.');
+  };
+  const version1 = parseVersionArray(appVersion);
+  const version2 = parseVersionArray(minVersion);
+  console.log(version1, version2);
+
+  for (let i = 0; i < (Math.max(version1.length, version2.length)); i++) {
+    if (version1[i] === undefined) { version1[i] = 0; }
+    if (version2[i] === undefined) { version2[i] = 0; }
+
+    if (Number(version1[i]) < Number(version2[i])) {
+      result = true;
+      break;
+    }
+    if (version1[i] !== version2[i]) {
+      break;
+    }
+  }
+  return (result);
+}
+
+console.log(isBelowMinVersion('1.4.5', '1.4.5'));
+console.log(isBelowMinVersion('1.4.4', '1.4.5'));
+console.log(isBelowMinVersion('1.4.5', '1.4.6'));
+console.log(isBelowMinVersion('1.2.5', '1.4.6'));
+console.log(isBelowMinVersion('1.6.5', '1.4.6'));
+console.log(isBelowMinVersion('2.4.5', '1.4.6'));
+console.log(isBelowMinVersion('1.4.5', '2.4.6'));
+console.log(isBelowMinVersion('1.1.3.1', '2.1.3.0'));
+console.log(isBelowMinVersion('v1.1.0.93', '1.4.5'));
