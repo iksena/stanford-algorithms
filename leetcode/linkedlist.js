@@ -213,3 +213,53 @@ console.log(head.getAll());
 // head.addAtHead(0);
 // head.addAtTail(4);
 // console.log(head.getAll());
+
+
+function ListNode(val, next) {
+    this.val = (val===undefined ? 0 : val)
+    this.next = (next===undefined ? null : next)
+}
+
+var Solution = function(head) {
+    this.head = head;
+};
+
+Solution.prototype.getRandom = function() {
+    let current = this.head;
+    let result = current.val;
+    let count = 1;
+
+    while (current !== null) {
+        if (Math.random() < (1 / count)) {
+            result = current.val;
+        }
+        current = current.next;
+        count++;
+    }
+
+    return result;
+};
+
+Solution.prototype.getRandom2 = function() {
+    let current = this.head;
+    const array = [];
+
+    while (current !== null) {
+        array.push(current.val);
+        current = current.next;
+    }
+
+    return array[Math.floor(Math.random() * array.length)];
+};
+
+const list = new ListNode(1, new ListNode(2, new ListNode(3)));
+const solution = new Solution(list);
+console.log(solution.getRandom());
+console.log(solution.getRandom());
+console.log(solution.getRandom());
+console.log(solution.getRandom());
+console.log(solution.getRandom());
+
+// for (let i = 0; i < 10; i++) {
+//   console.log(Math.ceil(Math.random()*5));
+// }

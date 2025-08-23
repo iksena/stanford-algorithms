@@ -42,4 +42,30 @@ const combinationalSum = () => {
   console.log(solution(arr, res));
 };
 
-combinationalSum();
+// combinationalSum();
+
+/**
+ * @param {number} x
+ * @return {boolean}
+ */
+const isPalindrome = function(x) {
+    const str = x.toString();
+    const reversed = str.split('').reverse().join('');
+    return str === reversed;
+};
+
+const isPalindromeGood = function(x) {
+
+    let check=x
+    let reverse=0;
+    while(x>0)
+    {
+        let d=x%10;
+        reverse=(reverse*10)+d;
+        
+        x=Math.floor(x/10)
+
+    }
+
+    return reverse === check
+};

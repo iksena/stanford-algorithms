@@ -407,4 +407,109 @@ const duplicateZerosProblem = () => {
   console.log(duplicateZeros(array2), answer2);
 };
 
-duplicateZerosProblem();
+// duplicateZerosProblem();
+
+const mergeIntervalsProblem = () => {
+  const a1 = [[1,3],[2,6],[8,10],[15,18]];
+  const a2 = [[1,4],[4,5]];
+
+  const mergeIntervals = (intervals) => {
+    const sortedIntervals = intervals.sort((a, b) => a[0] - b[0]);
+    const merged = [];
+
+    for (const interval of sortedIntervals) {
+      const lastMergedInterval = merged[merged.length - 1];
+      if (merged.length === 0 || lastMergedInterval[1] < interval[0]) {
+        merged.push(interval);
+      } else {
+        lastMergedInterval[1] = Math.max(lastMergedInterval[1], interval[1]);
+      }
+    }
+
+    return merged;
+  }
+
+  const mergeWorseIntervals = (intervals) => {
+    const sortedIntervals = intervals.sort((a, b) => a[0] - b[0]);
+    return merge(sortedIntervals, []);
+  };
+
+  // doesn't work, merged interval won't be compared with other merged interval
+  const merge = (I, newI) => {
+    if (I.length == 2) {
+      const [i1,i2] = I;
+      const [l1,u1] = i1;
+      const [l2,u2] = i2;
+      if (u1 >= l2) {
+        newI.push([l1, Math.max(u1, u2)]);
+        return newI;
+      } else {
+        newI.push(i1);
+        newI.push(i2);
+        return newI;
+      }
+    } else if (I.length < 2) {
+      newI.push(...I);
+      return newI;
+    }
+
+    const mid = Math.floor(I.length / 2);
+    return merge(I.slice(mid), merge(I.slice(0, mid), newI));
+  };
+
+  console.log(mergeIntervals(a1))
+  console.log(mergeIntervals(a2))
+  console.log(mergeWorseIntervals(a1))
+  console.log(mergeWorseIntervals(a2))
+}
+
+const majorityElement2Problem = () => {
+  const a = [3,2,3]
+  
+  const majorityElement = (nums) => {
+    const memory = {};
+    const majorityCount = Math.floor(nums.length / 3);
+    
+    const result = [];
+    for (const num of nums) {
+      memory[num] = (memory[num] || 0) + 1;
+    }
+
+    for (const [num, count] of Object.entries(memory)) {
+      if (count > majorityCount) {
+        result.push(Number(num));
+      }
+    }
+
+    return result;
+  }
+
+  const majorityElementNoMap = (nums) => {
+    const memory = new Array(1001).fill(0);
+    const majorityCount = Math.floor(nums.length / 3);
+    
+    const result = [];
+    for (const num of nums) {
+      memory[num] = (memory[num] || 0) + 1;
+    }
+
+    for (const [num, count] of Object.entries(memory)) {
+      if (count > majorityCount) {
+        result.push(Number(num));
+      }
+    }
+
+    return result;
+  }
+
+  console.log(majorityElement(a));
+  console.log(majorityElement([1,2]));
+  console.log(majorityElement([2,2]));
+  console.log(majorityElement([3,3,3,3,3,3,3]));
+  console.log(majorityElementNoMap(a));
+  console.log(majorityElementNoMap([1,2]));
+  console.log(majorityElementNoMap([2,2]));
+  console.log(majorityElementNoMap([3,3,3,3,3,3,3]));
+}
+
+majorityElement2Problem();
