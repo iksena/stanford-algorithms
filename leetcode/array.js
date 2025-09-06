@@ -512,4 +512,187 @@ const majorityElement2Problem = () => {
   console.log(majorityElementNoMap([3,3,3,3,3,3,3]));
 }
 
-majorityElement2Problem();
+const shuffleArrayProblem = () => {
+  const Solution = function(nums) {
+    this.nums = nums;
+  };
+
+  Solution.prototype.reset = function() {
+    return this.nums;
+  };
+
+  Solution.prototype.shuffle = function() {
+    const shuffled = this.nums.slice();
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
+
+  Solution.prototype.shuffle2 = function() {
+    const shuffled = [...this.nums]
+    for (let i = 0; i < shuffled.length; i++) {
+      const j = Math.floor(Math.random() * (shuffled.length - i)) + i;
+      // console.log(`Swapping ${shuffled[i]} with ${shuffled[j]}, index ${i} and ${j}`);
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
+
+  const a = new Solution([1, 2, 3]);
+  console.log(a.shuffle());
+  console.log(a.shuffle());
+  console.log(a.shuffle2());
+  console.log(a.shuffle2());
+  console.log(a.shuffle2());
+  console.log(a.shuffle2());
+}
+
+const teemoAttackingProblem = () => {
+  const findPoisonedDuration = (timeSeries, duration)=>{
+    if (timeSeries.length === 0) return 0;
+    let total = duration;
+    for (let i = 1; i < timeSeries.length; i++) {
+      const gap = timeSeries[i] - timeSeries[i - 1];
+      if (gap >= duration) {
+        total += duration;
+      } else {
+        total += gap;
+      }
+    }
+    return total;
+  }
+
+  console.log(findPoisonedDuration([1,4], 2)) //4
+  console.log(findPoisonedDuration([1,2], 2)) //3
+  console.log(findPoisonedDuration([1,2,3,4,5,6], 5)) //10
+  console.log(findPoisonedDuration([1,2,3,4,5,6], 1)) //6
+  console.log(findPoisonedDuration([], 100)) //0
+}
+
+const daysWithoutMeeting = () => {
+  const countDays = (days, meetings) => {
+    meetings = mergeIntervals(meetings);
+    let count = days - meetings[meetings.length-1][1];
+    count += meetings[0][0] - 1;
+    for(let i=1;i<meetings.length;i++){
+      if(meetings[i][0]-meetings[i-1][1] > 1){
+        count += meetings[i][0]-meetings[i-1][1]-1;
+      }
+    }
+    return count;
+  }
+
+  const mergeIntervals = (intervals) => {
+    const sortedIntervals = intervals.sort((a, b) => a[0] - b[0]);
+    const merged = [];
+
+    for (const interval of sortedIntervals) {
+      const lastMergedInterval = merged[merged.length - 1];
+      if (merged.length === 0 || lastMergedInterval[1] < interval[0]) {
+        merged.push(interval);
+      } else {
+        lastMergedInterval[1] = Math.max(lastMergedInterval[1], interval[1]);
+      }
+    }
+
+    return merged;
+  }
+
+  console.log(countDays(10, [[5,7],[1,3],[9,10]]));
+  console.log(countDays(5, [[2,4],[1,3]]));
+  console.log(countDays(6, [[1,6]]));
+  console.log(countDays(6, [[1,5]]));
+  console.log(countDays(8, [[3,4],[4,8],[2,5],[3,8]]));
+}
+
+const sortColorsProblem = () => {
+  const sortColorsWorse = (nums) => {
+    if(nums.length == 1) return nums;
+
+    let count = new Array(3).fill(0);
+    for(const num of nums) {
+      count[num] += 1
+    }
+
+    count[1] += count[0];
+    count[2] += count[1];
+
+    i = 0;
+    while(i < nums.length) {
+      correctIndex = count[nums[i]]-1;
+      if(correctIndex >= 0 && nums[i] != nums[correctIndex]){
+        [nums[i], nums[correctIndex]] = [nums[correctIndex], nums[i]]
+        count[nums[i]] -= 1
+      } else {
+        i++
+      }
+    }
+
+    return nums;
+  }
+
+  const sortColors = (nums) => {
+    let low = 0, mid = 0, high = nums.length - 1;
+    while (mid <= high) {
+      if (nums[mid] === 0) {
+        [nums[low], nums[mid]] = [nums[mid], nums[low]];
+        low++; mid++;
+      } else if (nums[mid] === 1) {
+        mid++;
+      } else {
+        [nums[mid], nums[high]] = [nums[high], nums[mid]];
+        high--;
+      }
+    }
+    return nums;
+  };
+
+  console.log(sortColors([2,0,2,1,1,0]))
+  console.log(sortColors([2,0,1]))
+}
+
+// sortColorsProblem();
+
+const containerWaterProblem = () => {
+  const maxArea = (height) => {
+    let maxArea = 0;
+    for(let i=0; i < height.length; i++){
+        for(let j=i+1; j < height.length; j++){
+            let width = j - i;
+            let tall = Math.min(height[i], height[j]);
+            let area = width * tall;
+            maxArea = Math.max(maxArea, area);
+        }
+    }
+
+    return maxArea;
+  }
+
+  const maxArea2 = (height) => {
+    let maxArea = 0;
+    let s = 0;
+    let e = height.length - 1;
+    while(s <= e) {
+      const width = e - s;
+      const tall = Math.min(height[s], height[e]);
+      const area = width * tall;
+      maxArea = Math.max(maxArea, area);
+      // console.log(maxArea);
+      if(height[s] < height[e]) {
+        s++;
+      } else {
+        e--;
+      }
+    }
+
+    return maxArea;
+  }
+
+  console.log(maxArea2([1,8,6,2,5,4,8,3,7]));
+  console.log(maxArea2([1,1]));
+  console.log(maxArea2([1,8,6,2,100,100,8,3,7]));
+}
+
+containerWaterProblem();

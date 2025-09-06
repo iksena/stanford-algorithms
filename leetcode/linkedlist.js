@@ -197,11 +197,11 @@ MyLinkedList.prototype.getAll = function () {
   return list;
 };
 
-const head = new MyLinkedList();
-head.addAtHead(0);
-head.addAtTail(1);
-head.addAtTail(2);
-console.log(head.getAll());
+// const head = new MyLinkedList();
+// head.addAtHead(0);
+// head.addAtTail(1);
+// head.addAtTail(2);
+// console.log(head.getAll());
 
 // head.addAtHead(7);
 // head.addAtTail(7);
@@ -252,14 +252,70 @@ Solution.prototype.getRandom2 = function() {
     return array[Math.floor(Math.random() * array.length)];
 };
 
-const list = new ListNode(1, new ListNode(2, new ListNode(3)));
-const solution = new Solution(list);
-console.log(solution.getRandom());
-console.log(solution.getRandom());
-console.log(solution.getRandom());
-console.log(solution.getRandom());
-console.log(solution.getRandom());
+ListNode.prototype.toString = function() {
+    let current = this;
+    let result = '';
+    while (current !== null) {
+        result += `${current.val} -> `;
+        current = current.next;
+    }
+    return result;
+}
 
-// for (let i = 0; i < 10; i++) {
-//   console.log(Math.ceil(Math.random()*5));
-// }
+// const list = new ListNode(1, new ListNode(2, new ListNode(3)));
+// const solution = new Solution(list);
+// console.log(solution.getRandom());
+
+const reverse1Problem = () => {
+  const head1 = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5)))));
+  const reverseList = (head) => {
+    let prev = null;
+    let current = head;
+    while(current !== null){
+      const next = current.next;
+      current.next = prev;
+      prev = current;
+      current = next;
+    }
+
+    return prev;
+  }
+
+  console.log(head1.toString());
+  console.log(reverseList(head1).toString());
+}
+
+const reverse2Problem = () => {
+  const head1 = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5)))));
+  const reverseList = (head, left, right) => {
+    if (!head || left === right) {
+      return head;
+    }
+    const dummy = new ListNode(0);
+    dummy.next = head;
+    let prevLeft = dummy;
+    for (let i = 1; i < left; i++) {
+      prevLeft = prevLeft.next;
+    }
+    
+    let current = prevLeft.next;
+    let prev = null;
+    
+    for (let i = left; i <= right; i++) {
+      const next = current.next;
+      current.next = prev;
+      prev = current;
+      current = next;
+    }
+    
+    prevLeft.next.next = current;
+    prevLeft.next = prev;
+    
+    return dummy.next;
+  }
+
+  console.log(head1.toString());
+  console.log(reverseList(head1,2,4).toString());
+}
+
+reverse2Problem();
